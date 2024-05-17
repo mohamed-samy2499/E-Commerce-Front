@@ -1,0 +1,45 @@
+<div class="parent">
+    <div class="container">
+        <div class="left-section"></div>
+        <div class="right-section">
+            <div class="login-container">
+                <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+                    <h2 class="login-title"><i class="fas fa-user-circle"></i> Login</h2>
+                    
+                    <div class="form-control">
+                        <i class="fas fa-user icon"></i>
+                        <input type="text" formControlName="email" name="email"   placeholder="Email" id="username" required>
+                        <div *ngIf="serverErrors['Email']" class="error">
+                            {{ serverErrors['Email'][0] }}
+                        </div>
+                    </div>
+                    <div class="form-control">
+                        <i class="fas fa-lock icon"></i>
+                        <input type="password" formControlName="password" name="password" placeholder="Password" id="password" >
+                        <div *ngIf="serverErrors['Password']" class="error">
+                            {{ serverErrors['Password'][0] }}
+                        </div>
+                    </div>
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" class="checkbox-input">
+                        <span class="checkbox-custom"></span>
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    
+                    <div class="social-login">
+                        <i class="fab fa-google social-icon"></i>
+                        <i class="fab fa-facebook-f social-icon"></i>
+                        <i class="fab fa-twitter social-icon"></i>
+                    </div>
+                    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+                        <div *ngFor="let error of serverErrors['errors']">
+                          <div class="error" >
+                            {{ error }}
+                          </div>
+                        </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

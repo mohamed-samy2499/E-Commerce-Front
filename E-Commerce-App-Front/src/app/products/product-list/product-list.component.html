@@ -1,0 +1,94 @@
+<div class="row">
+    <div [ngClass]="isSidePanelVisible? 'col-8' : 'col-12'">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Products List
+                    </div>
+                    
+                    <div class="col-6 text-end" *ngIf="isAdmin">
+                        <button class="btn btn-sm btn-success" (click)="onCreate()">New</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-3" *ngFor="let product of productsList">
+                        <div class="card">
+                            <img class="card-img-top" [src]="product.imageUrl" alt="Card image">
+                            <div class="card-body">
+                              <h4 class="card-title">{{product.name}}</h4>
+                              
+                              <p class="card-text">{{product.price}} $</p>
+                              <p class="card-text">{{product.description}}</p>
+
+                              <a  class="btn btn-primary mx-2" *ngIf="isAdmin" (click)="onEdit(product)">Edit</a>
+                              <a  class="btn btn-danger mx-2" *ngIf="isAdmin" (click)="onDelete(product)">Delete</a>
+                              <a  class="btn btn-info mx-2" *ngIf="isAdmin && !product.active" (click)="activate(product)">Activate</a>
+                              <a  class="btn btn-danger mx-2" *ngIf="isAdmin && product.active" (click)="deactivate(product)">Deactivate</a>
+                              <a class="btn btn-success mx-2"*ngIf="!isAdmin" (click)="addToCart(product)">Add to Cart</a>
+
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4" *ngIf="isSidePanelVisible">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <div class="row">
+                    <div class="col-6" *ngIf="productObj.id == 0">
+                        New Product
+                    </div>
+                    <div class="col-6" *ngIf="productObj.id !== 0" >
+                        Edit Product
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-sm btn-danger" (click)="onCancel()">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="productObj.name"/>
+                    </div>
+                    <div class="col-6">
+                        <label for="">Price</label>
+                        <input type="text" class="form-control" [(ngModel)]="productObj.price"/>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-12">
+                        <label for="">Image URL</label>
+                        <input type="url" class="form-control" [(ngModel)]="productObj.imageUrl"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="">Description</label>
+                        <textarea rows="4" class="form-control" [(ngModel)]="productObj.description"></textarea>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                  
+                    <div class="col-6 text-center">
+                        <button class="btn btn-info" (click)="resetProductObj()">Reset</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button class="btn btn-success" *ngIf="productObj.id == 0" (click)="Create()">Create</button>
+                        <button class="btn btn-primary" *ngIf="productObj.id !== 0" (click)="Edit()">Update</button>
+
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+    </div>
+</div>
